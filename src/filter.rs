@@ -1,4 +1,7 @@
+use serde;
+use serde::{Deserialize, Serialize};
 
+#[derive(Serialize, Deserialize)]
 pub struct Filter {
     smoothing_factor: f64,
     last_reading: f64

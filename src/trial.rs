@@ -3,7 +3,10 @@ use libra::scale::ConnectedScale;
 use crate::filter::Filter;
 use crate::data::Data;
 use crate::error::Error;
+use serde;
+use serde::{Deserialize, Serialize};
 
+#[derive(Deserialize, Serialize)]
 pub enum TrialType {
     Raw,
     Median,

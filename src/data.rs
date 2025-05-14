@@ -1,10 +1,12 @@
 use std::time::Duration;
+use serde;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Data {
     // TODO: for testing
     pub times: Vec<Duration>,
-    readings: Vec<f64>
+    pub readings: Vec<f64>
 }
 impl Data {
     pub fn new(samples: usize) -> Self {

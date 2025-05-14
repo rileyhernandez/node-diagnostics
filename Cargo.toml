@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 libra = {git = "https://github.com/Caldo-Restaurant-Technologies/libra.git"}
 thiserror = "2.0.12"
+serde = "1.0.219"
