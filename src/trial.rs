@@ -28,7 +28,7 @@ impl TrialType {
     }
 }
 
-
+#[derive(Serialize, Deserialize)]
 pub struct Trial {
     trial_type: TrialType,
     samples: usize,
