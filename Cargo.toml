@@ -1,0 +1,8 @@
+[package]
+name = "node-diagnostics"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+libra = {git = "https://github.com/Caldo-Restaurant-Technologies/libra.git"}
+thiserror = "2.0.12"
