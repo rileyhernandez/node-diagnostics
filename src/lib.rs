@@ -13,7 +13,7 @@ mod tests {
     use libra::scale::ConnectedScale;
     use crate::error::Error;
     use crate::filter::Filter;
-    use crate::trial::{Trial, TrialType};
+    use crate::trial::{LoadCellTrial, WeightTrial, WeightTrialType};
 
     fn make_scale() -> Result<ConnectedScale, Error> {
         ConnectedScale::without_id(Duration::from_secs(5)).map_err(Error::Libra)
@@ -27,7 +27,7 @@ mod tests {
     #[test]
     fn raw_weight_trial() -> Result<(), Error> {
         let scale = make_scale()?;
-        let data = Trial::default().conduct(&scale)?;
+        let data = WeightTrial::default().conduct(&scale)?;
         let times = data.times;
         println!("{:?}", times);
         Ok(())
@@ -36,13 +36,21 @@ mod tests {
     #[test]
     fn filter() -> Result<(), Error> {
         let scale = make_scale()?;
-        let data = Trial::new(
-            TrialType::Filtered(
+        let data = WeightTrial::new(
+            WeightTrialType::Filtered(
                 Filter::default()
             ),
             100,
             Duration::from_millis(20)
         ).conduct(&scale)?;
+        println!("{:?}", data);
+        Ok(())
+    }
+    #[test]
+    fn load_cell_trial() -> Result<(), Error> {
+        let scale = make_scale()?;
+        let trial = LoadCellTrial::new(20, Duration::from_millis(80));
+        let data = trial.conduct(&scale)?;
         println!("{:?}", data);
         Ok(())
     }

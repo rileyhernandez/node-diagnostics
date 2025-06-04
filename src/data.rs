@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Data {
-    // TODO: for testing
+    // TODO: pub for testing
     pub times: Vec<Duration>,
     pub readings: Vec<f64>
 }

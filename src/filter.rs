@@ -15,13 +15,16 @@ impl Filter {
             last_reading: 0.,
         }
     }
-    pub fn default() -> Self { Self::new(50., 0.5) }
-    fn update(self, incoming_reading: f64) -> Self {
-        Self { smoothing_factor: self.smoothing_factor, last_reading: incoming_reading}
-    }
+    // TODO: not sure if i need this?
+    // fn update(self, incoming_reading: f64) -> Self {
+    //     Self { smoothing_factor: self.smoothing_factor, last_reading: incoming_reading}
+    // }
     pub fn apply(&mut self, incoming_reading: f64) -> f64 {
         let last_reading = self.last_reading;
         self.last_reading = incoming_reading;
         self.smoothing_factor * incoming_reading + (1. - self.smoothing_factor) * last_reading
     }
+}
+impl Default for Filter {
+    fn default() -> Self { Self::new(50., 0.5) }
 }
