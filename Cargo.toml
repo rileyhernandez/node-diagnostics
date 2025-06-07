@@ -7,3 +7,5 @@ edition = "2024"
 libra = {git = "https://github.com/Caldo-Restaurant-Technologies/libra.git"}
 thiserror = "2.0.12"
 serde = "1.0.219"
+control-components = {git = "https://github.com/Caldo-Restaurant-Technologies/control-components.git"}
+tokio = "1.45.1"
