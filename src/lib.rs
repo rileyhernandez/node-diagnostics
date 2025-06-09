@@ -15,6 +15,7 @@ mod tests {
     use crate::error::Error;
     use crate::filter::Filter;
     use crate::trial::{LoadCellTrial, WeightTrial, WeightTrialType};
+    use control_components::controllers::clear_core::Controller;
 
     fn make_scale() -> Result<ConnectedScale, Error> {
         ConnectedScale::without_id(Duration::from_secs(5)).map_err(Error::Libra)
@@ -56,3 +57,36 @@ mod tests {
         Ok(())
     }
 }
+/*
+self.controller.get_or_insert(ControllerHandle::new(
+            "192.168.1.12:8888",
+            array::from_fn(|_| MotorBuilder { id: 0, scale: 800 }),
+        ))
+        
+pub fn get_motor(&mut self, id: usize) -> ClearCoreMotor {
+        if self.clear_core.is_none() {
+            let (controller, controller_client) = clear_core::Controller::with_client(
+                "192.168.1.2:8888",
+                &[
+                    clear_core::MotorBuilder {
+                        id: 0,
+                        scale: 800,
+                    },
+                    clear_core::MotorBuilder {
+                        id: 1,
+                        scale: 800,
+                    },
+                ],
+            );
+            tauri::async_runtime::spawn(async move {
+                if let Err(_) = controller_client.await {
+                    println!("No motor/io controller connected...");
+                }
+            });
+            thread::sleep(Duration::from_secs(5));
+            controller.get_motor(id)
+        } else {
+            self.clear_core.clone().unwrap().get_motor(id)
+        }
+    }
+ */

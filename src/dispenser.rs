@@ -35,14 +35,7 @@ impl DispenseOutcome {
         interval.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Skip);
         motor.relative_move(1000.).await.expect("Clear core bug");
         let mut last_speed_update = tokio::time::Instant::now();
-
-        // let starting_weight = scale
-        //     .get_median_weight(10, settings.sample_period)
-        //     .map_err(AppError::Libra)?
-        //     .get();
-        // // TODO: figure out what to do with this...
-        // filter.apply(starting_weight);
-
+        
         let start_time = tokio::time::Instant::now();
         let mut checks_made = 0;
         let result = loop {
@@ -65,7 +58,7 @@ impl DispenseOutcome {
                 motor.relative_move(1000.).await.expect("Clear core bug");
             }
 
-            if curr_weight <= starting_weight - (settings.weight + settings.check_offset) && (now-start_time > settings.start_buffer) {
+            if curr_weight <= starting_weight - (settings.weight - settings.check_offset) && (now-start_time > settings.start_buffer) {
                 checks_made += 1;
                 motor.abrupt_stop().await;
                 tokio::time::sleep(Duration::from_millis(50)).await;
