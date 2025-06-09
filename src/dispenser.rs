@@ -63,7 +63,7 @@ impl DispenseOutcome {
                 motor.abrupt_stop().await;
                 tokio::time::sleep(Duration::from_millis(50)).await;
                 let med_weight = scale
-                    .get_median_weight(100, settings.sample_period)
+                    .get_median_weight(settings.check_samples, settings.sample_period)
                     .map_err(Error::Libra)?
                     .get();
                 data.push(tokio::time::Instant::now() - start_time, med_weight);
@@ -98,7 +98,8 @@ pub struct DispenseSettings {
     min_velocity: f64,
     retract: f64,
     timeout: Duration,
-    start_buffer: Duration
+    start_buffer: Duration,
+    check_samples: usize,
 }
 impl Default for DispenseSettings {
     fn default() -> Self {
@@ -111,7 +112,8 @@ impl Default for DispenseSettings {
             min_velocity: 0.1,
             retract: 0.3,
             timeout: Duration::from_secs(30),
-            start_buffer: Duration::from_millis(1000)
+            start_buffer: Duration::from_millis(1000),
+            check_samples: 100,
         }
     }
 }
