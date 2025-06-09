@@ -72,6 +72,8 @@ impl DispenseOutcome {
                 } else {
                     filter = Filter::new(sample_rate, settings.cutoff_frequency);
                     filter.apply(med_weight);
+                    motor.relative_move(0.05).await.expect("Clear core bug");
+                    motor.wait_for_move(Duration::from_millis(10)).await.expect("Clear core bug");
                     motor.relative_move(1000.).await.expect("Clear core bug");
                     // continue
                 }
