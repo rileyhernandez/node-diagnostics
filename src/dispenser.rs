@@ -90,7 +90,7 @@ impl DispenseOutcome {
         Ok(result)
     }
 }
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct DispenseSettings {
     sample_period: Duration,
     cutoff_frequency: f64,
